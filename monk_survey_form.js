@@ -172,7 +172,7 @@ function showCountError(message) {
 function showCountValue(count) {
     const countEl = document.getElementById('response-count');
 
-    countEl.innerHTML = `<i class="fa-solid fa-users"></i> <span class="count-text">ตอบแล้ว</span> ${count} <span class="count-text">รูป</span>`;
+    countEl.innerHTML = `<i class="fa-solid fa-users"></i> <span class="count-text">กรอกข้อมูลแล้ว</span> ${count} <span class="count-text">รูป</span>`;
     countEl.style.display = 'inline-flex';
     countEl.style.background = '';
     countEl.style.borderColor = '';

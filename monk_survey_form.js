@@ -6,6 +6,33 @@ const form = document.getElementById('survey-form');
 const btnSubmit = document.getElementById('btn-submit');
 let masterData = [];
 
+/* ── 🌙🌞 Theme Toggle Logic ── */
+const themeToggleBtn = document.getElementById('theme-toggle');
+const themeIcon = themeToggleBtn.querySelector('i');
+
+// โหลดค่า Theme ที่บันทึกไว้ หรือดูจากการตั้งค่าเครื่อง
+const savedTheme = localStorage.getItem('theme');
+const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeIcon.className = 'fa-solid fa-moon';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.className = 'fa-solid fa-sun';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.className = 'fa-solid fa-moon';
+    }
+});
+/* ───────────────────────────── */
+
 // 1. โหลดข้อมูลเขตเมื่อเปิดหน้าเว็บครั้งแรก
 window.addEventListener('load', function() {
     if (scriptURL === 'ใส่_URL_ของ_Google_Apps_Script_ที่นี่' || scriptURL === '') {
@@ -100,7 +127,7 @@ form.addEventListener('submit', e => {
             document.getElementById('wat_europe_input').placeholder = '-- กรุณาเลือกประเทศก่อน --';
 
             btnSubmit.innerHTML = '<i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ';
-            btnSubmit.style.background = 'linear-gradient(135deg, #8c6239 0%, #6e4823 100%)';
+            btnSubmit.style.background = 'linear-gradient(135deg, var(--gold-main) 0%, #9e7010 100%)';
             btnSubmit.disabled = false;
         })
         .catch(error => {
@@ -108,7 +135,7 @@ form.addEventListener('submit', e => {
             alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
 
             btnSubmit.innerHTML = '<i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ';
-            btnSubmit.style.background = 'linear-gradient(135deg, #8c6239 0%, #6e4823 100%)';
+            btnSubmit.style.background = 'linear-gradient(135deg, var(--gold-main) 0%, #9e7010 100%)';
             btnSubmit.disabled = false;
         });
 });

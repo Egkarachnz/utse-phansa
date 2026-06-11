@@ -1,228 +1,293 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบสำรวจพระจำพรรษา</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sarabun: ['Sarabun', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        form: '0 15px 35px rgba(139, 94, 26, 0.08)',
-                        button: '0 6px 15px rgba(140, 98, 57, 0.25)',
-                        buttonHover: '0 8px 20px rgba(140, 98, 57, 0.35)',
-                    },
-                },
-            },
-        };
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบสำรวจพระจำพรรษา</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="monk_survey_form.css">
 </head>
-<body class="min-h-screen bg-[#f7f1e3] text-[#333333] font-sarabun px-5 py-10 flex items-center justify-center">
+<body>
 
-<div class="w-full max-w-3xl rounded-[28px] border-t-8 border-[#c99a3c] bg-white p-10 shadow-form">
-   <div class="text-center border-b border-dashed border-[#f1e6cf] pb-8 mb-10">
-    <div class="mb-6">
-        <img src="img/to/utse_logo.png" alt="Logo" class="mx-auto h-24 w-auto object-contain">
+<div class="page-wrapper">
+
+  <aside class="side-panel">
+    <div class="side-inner">
+
+      <span class="org-badge">
+        <i class="fa-solid fa-dharmachakra"></i>
+        คณะสงฆ์ธรรมทูตไทยในยุโรป
+      </span>
+
+      <img src="img/to/utse_logo.png" alt="Logo" class="panel-logo"
+           onerror="this.outerHTML='<i class=\'fa-solid fa-dharmachakra\' style=\'font-size:52px;color:var(--gold-main);margin-bottom:28px;display:block;\'></i>'">
+
+      <h1 class="panel-title">
+        แบบสำรวจ<br><em>พระจำพรรษา</em>
+      </h1>
+
+      <p class="panel-desc">
+        กรุณากรอกข้อมูลตามความเป็นจริงเพื่อประโยชน์ต่อการจัดการฐานข้อมูลพระธรรมทูต
+      </p>
+
+      <ul class="step-list">
+        <li class="step-item active">
+          <span class="step-dot">1</span>
+          ข้อมูลส่วนตัว
+        </li>
+        <li class="step-item active">
+          <span class="step-dot">2</span>
+          การจำพรรษาและสังกัด
+        </li>
+        <li class="step-item active">
+          <span class="step-dot">3</span>
+          วุฒิการศึกษาและตำแหน่ง
+        </li>
+        <li class="step-item active">
+          <span class="step-dot">4</span>
+          การอธิษฐานพรรษา
+        </li>
+      </ul>
+
+      <div class="panel-credit">
+        ระบบแบบสำรวจพระจำพรรษา · พ.ศ. 2569
+      </div>
+
     </div>
-    <h1 class="text-3xl font-semibold text-[#8c6239] mb-3">แบบสำรวจพระจำพรรษา</h1>
-    <p class="text-sm text-[#666666] leading-7">กรุณากรอกข้อมูลตามความเป็นจริงเพื่อประโยชน์ต่อการจัดการฐานข้อมูลพระธรรมทูต</p>
-</div>
+  </aside>
 
-    <form id="survey-form" class="space-y-6">
+  <div class="form-panel">
 
-        <div>
-            <label for="year" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ประจำปี <span class="text-red-500">*</span></label>
-            <div class="relative">
-                <i class="fa-regular fa-calendar-days absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <select id="year" name="year" required class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777] appearance-none">
-                    <option value="" disabled selected>-- เลือกปีประจำพรรษา --</option>
-                    <option value="2569">2569</option>
-                    <option value="2568">2568</option>
-                    <option value="2567">2567</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <label for="firstname" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ชื่อ (สมณศักดิ์) <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">กรณีมีสมณศักดิ์ ให้กรอกชื่อและฉายาในช่องถัดไป / ส่วนพระมหา, พระทั่วไป ให้กรอกชื่อปกติที่ช่องนี้</p>
-            <div class="relative">
-                <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="firstname" name="firstname" required placeholder="กรอกชื่อ หรือสมณศักดิ์" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="chaya" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ฉายา <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">หากมีสมณศักดิ์ ให้ใส่ "ชื่อ+ฉายา" ในช่องนี้ นอกนั้นให้ใส่เฉพาะ "ฉายา" เท่านั้น</p>
-            <div class="relative">
-                <i class="fa-solid fa-user-tag absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="chaya" name="chaya" required placeholder="กรอกฉายา (หรือ ชื่อ+ฉายา กรณีมีสมณศักดิ์)" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="lastname" class="block text-sm font-semibold text-[#4a4a4a] mb-2">นามสกุล <span class="text-red-500">*</span></label>
-            <div class="relative">
-                <i class="fa-regular fa-id-card absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="lastname" name="lastname" required placeholder="กรอกนามสกุลทางโลก" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="phansa" class="block text-sm font-semibold text-[#4a4a4a] mb-2">พรรษา <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">กรุณานับรวมพรรษาปีปัจจุบันด้วย</p>
-            <div class="relative">
-                <i class="fa-solid fa-hands-praying absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="number" id="phansa" name="phansa" required min="0" placeholder="ระบุจำนวนพรรษา (ตัวเลข)" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div class="mt-10 mb-5 border-l-4 border-[#c99a3c] bg-gradient-to-r from-[#fdfcf7] via-transparent to-transparent pl-4 py-2 text-lg font-semibold text-[#8c6239]">
-            <i class="fa-solid fa-vihara mr-2"></i> ข้อมูลการจำพรรษาและสังกัด
-        </div>
-
-        <div>
-            <label for="region_select" class="block text-sm font-semibold text-[#4a4a4a] mb-2">เขตการปกครองคณะสงฆ์ (ในยุโรป) <span class="text-red-500">*</span></label>
-            <div class="relative">
-                <i class="fa-solid fa-layer-group absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <select id="region_select" name="region" required onchange="onRegionChange()" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777] appearance-none">
-                    <option value="" disabled selected>⏳ กำลังโหลดข้อมูลเขต...</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <label for="country_input" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ประเทศ <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">พิมพ์เพื่อค้นหา เลือกจากรายการ หรือพิมพ์ชื่อประเทศใหม่ได้เลย</p>
-            <div class="relative">
-                <i class="fa-solid fa-earth-europe absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="country_input" name="country" list="country_list" autocomplete="off" required onchange="onCountryChange()" placeholder="-- กรุณาเลือกเขตก่อน --" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-                <datalist id="country_list"></datalist>
-            </div>
-        </div>
-
-        <div>
-            <label for="wat_europe_input" class="block text-sm font-semibold text-[#4a4a4a] mb-2">สังกัดวัด (ในยุโรป) <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">พิมพ์เพื่อค้นหา เลือกจากรายการ หรือพิมพ์ชื่อวัดใหม่ได้เลย</p>
-            <div class="relative">
-                <i class="fa-solid fa-place-of-worship absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="wat_europe_input" name="wat_europe" list="wat_europe_list" autocomplete="off" required placeholder="-- กรุณาเลือกประเทศก่อน --" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-                <datalist id="wat_europe_list"></datalist>
-            </div>
-        </div>
-
-        <div>
-            <label for="wat_thailand" class="block text-sm font-semibold text-[#4a4a4a] mb-2">สังกัดวัด / จังหวัด (ประเทศไทย) <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">สังกัดเดิมหรือวัดที่จำพรรษาในประเทศไทย</p>
-            <div class="relative">
-                <i class="fa-solid fa-map-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="wat_thailand" name="wat_thailand" required placeholder="ระบุชื่อวัด และจังหวัดที่ประเทศไทย" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div class="mt-10 mb-5 border-l-4 border-[#c99a3c] bg-gradient-to-r from-[#fdfcf7] via-transparent to-transparent pl-4 py-2 text-lg font-semibold text-[#8c6239]">
-            <i class="fa-solid fa-graduation-cap mr-2"></i> วุฒิการศึกษาและตำแหน่ง
-        </div>
-
-        <div>
-            <label for="naktham" class="block text-sm font-semibold text-[#4a4a4a] mb-2">น.ธ. (นักธรรม)</label>
-            <p class="text-xs text-[#888888] mb-3">ระบุชั้นนักธรรมที่สอบไล่ได้สูงสุด</p>
-            <div class="relative">
-                <i class="fa-solid fa-book-open-reader absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <select id="naktham" name="naktham" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777] appearance-none">
-                    <option value="" selected>-- เลือกชั้นนักธรรม (ถ้ามี) --</option>
-                    <option value="เอก">นักธรรมชั้นเอก</option>
-                    <option value="โท">นักธรรมชั้นโท</option>
-                    <option value="ตรี">นักธรรมชั้นตรี</option>
-                    <option value="ไม่ได้สอบ">ไม่ได้สอบ</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <label for="parian" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ป.ธ. (เปรียญธรรม)</label>
-            <p class="text-xs text-[#888888] mb-3">ระบุชั้นเปรียญธรรมที่สอบไล่ได้</p>
-            <div class="relative">
-                <i class="fa-solid fa-book-journal-whills absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="parian" name="parian" placeholder="เช่น ป.ธ.๖ (หากไม่มีให้เว้นว่างไว้)" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="education" class="block text-sm font-semibold text-[#4a4a4a] mb-2">วุฒิสายสามัญ</label>
-            <p class="text-xs text-[#888888] mb-3">ระบุชั้นที่สำเร็จการศึกษาสูงสุด</p>
-            <div class="relative">
-                <i class="fa-solid fa-award absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="education" name="education" placeholder="เช่น ป.โท - ป.เอก หรือ พธ.บ - Ph.D" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="dhammaduta_model" class="block text-sm font-semibold text-[#4a4a4a] mb-2">พระธรรมทูต (รุ่น)</label>
-            <p class="text-xs text-[#888888] mb-3">หากผ่านการอบรมพระธรรมทูต กรุณาระบุรุ่นที่อบรม</p>
-            <div class="relative">
-                <i class="fa-solid fa-users-viewfinder absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="dhammaduta_model" name="dhammaduta_model" placeholder="เช่น รุ่นที่ ๒๐ (หากไม่มีให้เว้นว่าง)" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="position" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ตำแหน่งปัจจุบัน <span class="text-red-500">*</span></label>
-            <div class="relative">
-                <i class="fa-solid fa-sitemap absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="text" id="position" name="position" required placeholder="เช่น เจ้าอาวาส, พระธรรมทูตปฏิบัติศาสนกิจ" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label class="block text-sm font-semibold text-[#4a4a4a] mb-3">การอธิษฐานพรรษา <span class="text-red-500">*</span></label>
-            <div class="flex flex-col gap-4 sm:flex-row">
-                <label class="flex items-center gap-3 rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] px-4 py-3 transition hover:border-[#c99a3c] hover:bg-[#fffaf0] cursor-pointer">
-                    <input type="radio" name="pansa_period" value="พรรษาต้น" required checked class="h-4 w-4 accent-[#8c6239]" />
-                    <span class="flex items-center gap-2 text-sm text-[#333333]"><i class="fa-solid fa-sun text-[#c99a3c]"></i>พรรษาต้น</span>
-                </label>
-                <label class="flex items-center gap-3 rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] px-4 py-3 transition hover:border-[#c99a3c] hover:bg-[#fffaf0] cursor-pointer">
-                    <input type="radio" name="pansa_period" value="พรรษาหลัง" class="h-4 w-4 accent-[#8c6239]" />
-                    <span class="flex items-center gap-2 text-sm text-[#333333]"><i class="fa-solid fa-moon text-[#8c6239]"></i>พรรษาหลัง</span>
-                </label>
-            </div>
-        </div>
-
-        <div>
-            <label for="monk_count" class="block text-sm font-semibold text-[#4a4a4a] mb-2">จำนวนพระจำพรรษาในวัด <span class="text-red-500">*</span></label>
-            <p class="text-xs text-[#888888] mb-3">ระบุจำนวนพระที่จำพรรษา (๑ วัด ส่งคำตอบเพียง ๑ ครั้ง)</p>
-            <div class="relative">
-                <i class="fa-solid fa-users absolute left-4 top-1/2 -translate-y-1/2 text-[#c99a3c]"></i>
-                <input type="number" id="monk_count" name="monk_count" required placeholder="ระบุจำนวน (ตัวเลข)" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777]" />
-            </div>
-        </div>
-
-        <div>
-            <label for="suggestions" class="block text-sm font-semibold text-[#4a4a4a] mb-2">ข้อเสนอแนะ</label>
-            <div class="relative">
-                <i class="fa-regular fa-comment-dots absolute left-4 top-4 text-[#c99a3c]"></i>
-                <textarea id="suggestions" name="suggestions" placeholder="ระบุข้อเสนอแนะเพิ่มเติม (ถ้ามี)" class="w-full rounded-xl border border-[#dcd1b4] bg-[#fdfcf7] py-4 pl-12 pr-4 text-sm text-[#333333] outline-none transition focus:border-[#c99a3c] focus:ring-4 focus:ring-[#d4af3777] min-h-[120px]"></textarea>
-            </div>
-        </div>
-
-        <button type="submit" id="btn-submit" class="w-full rounded-xl bg-gradient-to-r from-[#8c6239] to-[#6e4823] px-6 py-4 text-lg font-semibold text-white shadow-button transition duration-200 hover:shadow-buttonHover hover:-translate-y-0.5 active:translate-y-0.5 flex items-center justify-center gap-3">
-            <i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ
+    <div class="form-topbar">
+      <span class="topbar-label"><i class="fa-solid fa-file-pen" style="margin-right:8px;color:var(--gold-muted)"></i>กรอกข้อมูลแบบสำรวจ</span>
+      <div class="topbar-actions">
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-sun"></i>
         </button>
-    </form>
-
-    <div class="mt-10 pt-6 border-t border-dashed border-[#dcd1b4] text-center text-sm font-semibold text-[#8c6239]">
-        <i class="fa-solid fa-hands-praying mr-2"></i> ขอบพระคุณที่กรอกข้อมูลแบบสำรวจ
+        <span class="year-pill">พรรษา 2569</span>
+      </div>
     </div>
-</div>
 
-<script src="monk_survey_form.js"></script>
+    <div class="form-content">
+      <form id="survey-form" autocomplete="off">
+
+        <div class="section-header">
+          <div class="section-icon"><i class="fa-solid fa-user-pen"></i></div>
+          <span class="section-title">ข้อมูลส่วนตัว</span>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group col-span-2">
+            <label for="year">ประจำปี <span class="required">*</span></label>
+            <div class="input-wrap">
+              <select id="year" name="year" required class="f-control">
+                <option value="" disabled selected>-- เลือกปีประจำพรรษา --</option>
+                <option value="2569">2569</option>
+                <option value="2568">2568</option>
+                <option value="2567">2567</option>
+              </select>
+              <i class="fa-regular fa-calendar-days ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstname">ชื่อ (สมณศักดิ์) <span class="required">*</span></label>
+            <p class="form-hint">พระมหา / พระทั่วไป ให้กรอกชื่อปกติ · มีสมณศักดิ์ กรอกชื่อ+ฉายาในช่องถัดไป</p>
+            <div class="input-wrap">
+              <input type="text" id="firstname" name="firstname" required placeholder="ชื่อ หรือสมณศักดิ์" class="f-control" />
+              <i class="fa-solid fa-user ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="chaya">ฉายา <span class="required">*</span></label>
+            <p class="form-hint">มีสมณศักดิ์ → ใส่ "ชื่อ+ฉายา" · ทั่วไป → ใส่เฉพาะ "ฉายา"</p>
+            <div class="input-wrap">
+              <input type="text" id="chaya" name="chaya" required placeholder="ฉายา" class="f-control" />
+              <i class="fa-solid fa-user-tag ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastname">นามสกุล <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input type="text" id="lastname" name="lastname" required placeholder="นามสกุลทางโลก" class="f-control" />
+              <i class="fa-regular fa-id-card ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phansa">พรรษา <span class="required">*</span></label>
+            <p class="form-hint">นับรวมพรรษาปีปัจจุบันด้วย</p>
+            <div class="input-wrap">
+              <input type="number" id="phansa" name="phansa" required min="0" placeholder="จำนวนพรรษา" class="f-control" />
+              <i class="fa-solid fa-hands-praying ico"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="section-header">
+          <div class="section-icon"><i class="fa-solid fa-vihara"></i></div>
+          <span class="section-title">การจำพรรษาและสังกัด</span>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group col-span-2">
+            <label for="region_select">เขตการปกครองคณะสงฆ์ (ในยุโรป) <span class="required">*</span></label>
+            <div class="input-wrap">
+              <select id="region_select" name="region" required onchange="onRegionChange()" class="f-control">
+                <option value="" disabled selected>⏳ กำลังโหลดข้อมูลเขต...</option>
+              </select>
+              <i class="fa-solid fa-layer-group ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="country_input">ประเทศ <span class="required">*</span></label>
+            <p class="form-hint">พิมพ์เพื่อค้นหา หรือเลือกจากรายการ</p>
+            <div class="input-wrap">
+              <input type="text" id="country_input" name="country" list="country_list" autocomplete="off" required onchange="onCountryChange()" placeholder="-- กรุณาเลือกเขตก่อน --" class="f-control" />
+              <datalist id="country_list"></datalist>
+              <i class="fa-solid fa-earth-europe ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="wat_europe_input">วัด / สำนักสงฆ์ (ในยุโรป) <span class="required">*</span></label>
+            <p class="form-hint">พิมพ์เพื่อค้นหา หรือพิมพ์ชื่อวัดใหม่</p>
+            <div class="input-wrap">
+              <input type="text" id="wat_europe_input" name="wat_europe" list="wat_europe_list" autocomplete="off" required placeholder="-- กรุณาเลือกประเทศก่อน --" class="f-control" />
+              <datalist id="wat_europe_list"></datalist>
+              <i class="fa-solid fa-place-of-worship ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="wat_thailand">สังกัดวัด / จังหวัด (ประเทศไทย) <span class="required">*</span></label>
+            <p class="form-hint">สังกัดเดิม หรือวัดที่จำพรรษาในประเทศไทย</p>
+            <div class="input-wrap">
+              <input type="text" id="wat_thailand" name="wat_thailand" required placeholder="ชื่อวัด และจังหวัดในประเทศไทย" class="f-control" />
+              <i class="fa-solid fa-map-location-dot ico"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="section-header">
+          <div class="section-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <span class="section-title">วุฒิการศึกษาและตำแหน่ง</span>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="naktham">น.ธ. (นักธรรม)</label>
+            <p class="form-hint">ชั้นนักธรรมที่สอบไล่ได้สูงสุด</p>
+            <div class="input-wrap">
+              <select id="naktham" name="naktham" class="f-control">
+                <option value="" selected>-- เลือกชั้นนักธรรม (ถ้ามี) --</option>
+                <option value="เอก">นักธรรมชั้นเอก</option>
+                <option value="โท">นักธรรมชั้นโท</option>
+                <option value="ตรี">นักธรรมชั้นตรี</option>
+                <option value="ไม่ได้สอบ">ไม่ได้สอบ</option>
+              </select>
+              <i class="fa-solid fa-book-open-reader ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="parian">ป.ธ. (เปรียญธรรม)</label>
+            <p class="form-hint">ชั้นเปรียญธรรมที่สอบไล่ได้ (ถ้ามี)</p>
+            <div class="input-wrap">
+              <input type="text" id="parian" name="parian" placeholder="เช่น ป.ธ.๖" class="f-control" />
+              <i class="fa-solid fa-book-journal-whills ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="education">วุฒิสายสามัญ</label>
+            <p class="form-hint">วุฒิการศึกษาสายสามัญสูงสุด</p>
+            <div class="input-wrap">
+              <input type="text" id="education" name="education" placeholder="เช่น ป.โท, ป.เอก, พธ.บ, Ph.D" class="f-control" />
+              <i class="fa-solid fa-award ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dhammaduta_model">พระธรรมทูต (รุ่น)</label>
+            <p class="form-hint">รุ่นที่ผ่านการอบรม (ถ้ามี)</p>
+            <div class="input-wrap">
+              <input type="text" id="dhammaduta_model" name="dhammaduta_model" placeholder="เช่น รุ่นที่ ๒๐" class="f-control" />
+              <i class="fa-solid fa-users-viewfinder ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="position">ตำแหน่งปัจจุบัน <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input type="text" id="position" name="position" required placeholder="เช่น เจ้าอาวาส, พระธรรมทูตปฏิบัติศาสนกิจ" class="f-control" />
+              <i class="fa-solid fa-sitemap ico"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="section-header">
+          <div class="section-icon"><i class="fa-solid fa-moon"></i></div>
+          <span class="section-title">การอธิษฐานพรรษา</span>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>การอธิษฐานพรรษา <span class="required">*</span></label>
+            <div class="input-wrap radio-row">
+              <label class="radio-card">
+                <input type="radio" name="pansa_period" value="พรรษาต้น" required checked />
+                <span class="radio-label"><i class="fa-solid fa-sun"></i>พรรษาต้น</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="pansa_period" value="พรรษาหลัง" />
+                <span class="radio-label"><i class="fa-solid fa-moon"></i>พรรษาหลัง</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="monk_count">จำนวนพระจำพรรษาในวัด <span class="required">*</span></label>
+            <p class="form-hint">ระบุจำนวนพระทั้งหมด (๑ วัด ส่งคำตอบเพียง ๑ ครั้ง)</p>
+            <div class="input-wrap">
+              <input type="number" id="monk_count" name="monk_count" required min="1" placeholder="จำนวนรูป" class="f-control" />
+              <i class="fa-solid fa-users ico"></i>
+            </div>
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="suggestions">ข้อเสนอแนะ</label>
+            <div class="input-wrap">
+              <textarea id="suggestions" name="suggestions" placeholder="ระบุข้อเสนอแนะเพิ่มเติม (ถ้ามี)" class="f-control"></textarea>
+              <i class="fa-regular fa-comment-dots ico ico-top"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn-submit">
+          <i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ
+        </button>
+
+      </form>
+    </div>
+
+    <div class="form-footer">
+      <i class="fa-solid fa-hands-praying"></i>
+      ขอบพระคุณที่กรอกข้อมูลแบบสำรวจ
+    </div>
+
+  </div></div><script src="monk_survey_form.js"></script>
 </body>
 </html>

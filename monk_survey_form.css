@@ -567,38 +567,59 @@ input[list]::-webkit-calendar-picker-indicator {
 .form-footer i { color: var(--gold-muted); }
 
 /* ══════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — mobile single column
 ══════════════════════════════════════ */
-@media (max-width: 1100px) {
-  .page-wrapper { grid-template-columns: 340px 1fr; }
-  .side-inner { padding: 40px 32px 32px; }
-  .panel-title { font-size: 26px; }
-  .form-content { padding: 36px 40px 56px; }
-  .form-topbar { padding: 13px 40px; }
-  .form-footer { padding: 16px 40px; }
-}
-
 @media (max-width: 780px) {
   body { overflow: auto; }
+
   .page-wrapper {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     height: auto;
     min-height: 100vh;
   }
-  .side-panel { border-right: none; border-bottom: 1px solid var(--border); }
-  .side-inner { padding: 32px 24px 28px; }
-  .panel-title { font-size: 24px; }
-  .panel-desc, .step-list, .panel-credit { display: none; }
+
+  .side-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* --- ส่วนที่ปรับแต่งให้จัดกึ่งกลาง --- */
+  .side-inner { 
+    padding: 40px 24px 32px; 
+    align-items: center;  /* จัดให้อยู่กึ่งกลางแนวนอน */
+    text-align: center;   /* จัดตัวหนังสือให้อยู่กึ่งกลาง */
+  }
+
   .org-badge { margin-bottom: 20px; }
+
+  .panel-logo {
+    width: 75px; /* ปรับขนาดโลโก้ในมือถือให้พอดีตาขึ้น */
+    height: 75px;
+    margin-bottom: 20px;
+  }
+
+  .panel-title { 
+    font-size: 26px; 
+    margin-bottom: 0; /* ซ่อน margin ด้านล่างเพราะคำอธิบายถูกซ่อนไปแล้ว */
+  }
+  /* ---------------------------------- */
+
+  .panel-desc, .step-list, .panel-credit { display: none; }
+
   .form-panel { overflow-y: visible; }
+
   .form-topbar { padding: 12px 20px; position: static; }
   .form-content { padding: 28px 20px 48px; }
   .form-footer { padding: 14px 20px; }
+
   .form-grid { grid-template-columns: 1fr; gap: 0; }
   .col-span-2 { grid-column: 1; }
+
   .radio-row { flex-direction: column; margin-top: 0; }
   .radio-card { min-width: unset; }
+
+  .form-group.no-hint::after { display: none; }
   .form-hint { flex-grow: 0; }
 }
 

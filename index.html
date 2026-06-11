@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสำรวจพระจำพรรษา</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="monk_survey_form.css">
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-header">
+        <i class="fa-solid fa-dharmachakra"></i>
+        <h1>แบบสำรวจพระจำพรรษา</h1>
+        <p>กรุณากรอกข้อมูลตามความเป็นจริงเพื่อประโยชน์ต่อการจัดการฐานข้อมูลพระธรรมทูต</p>
+    </div>
+
+    <form id="survey-form">
+
+        <div class="form-group">
+            <label for="year">ประจำปี <span class="required">*</span></label>
+            <div class="input-group">
+                <i class="fa-regular fa-calendar-days"></i>
+                <select id="year" name="year" class="form-control" required>
+                    <option value="" disabled selected>-- เลือกปีประจำพรรษา --</option>
+                    <option value="2569">2569</option>
+                    <option value="2568">2568</option>
+                    <option value="2567">2567</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="firstname">ชื่อ (สมณศักดิ์) <span class="required">*</span></label>
+            <span class="description">กรณีมีสมณศักดิ์ ให้กรอกชื่อและฉายาในช่องถัดไป / ส่วนพระมหา, พระทั่วไป ให้กรอกชื่อปกติที่ช่องนี้</span>
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="firstname" name="firstname" class="form-control" placeholder="กรอกชื่อ หรือสมณศักดิ์" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="chaya">ฉายา <span class="required">*</span></label>
+            <span class="description">หากมีสมณศักดิ์ ให้ใส่ "ชื่อ+ฉายา" ในช่องนี้ นอกนั้นให้ใส่เฉพาะ "ฉายา" เท่านั้น</span>
+            <div class="input-group">
+                <i class="fa-solid fa-user-tag"></i>
+                <input type="text" id="chaya" name="chaya" class="form-control" placeholder="กรอกฉายา (หรือ ชื่อ+ฉายา กรณีมีสมณศักดิ์)" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastname">นามสกุล <span class="required">*</span></label>
+            <div class="input-group">
+                <i class="fa-regular fa-id-card"></i>
+                <input type="text" id="lastname" name="lastname" class="form-control" placeholder="กรอกนามสกุลทางโลก" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phansa">พรรษา <span class="required">*</span></label>
+            <span class="description">กรุณานับรวมพรรษาปีปัจจุบันด้วย</span>
+            <div class="input-group">
+                <i class="fa-solid fa-hands-praying"></i>
+                <input type="number" id="phansa" name="phansa" class="form-control" min="0" placeholder="ระบุจำนวนพรรษา (ตัวเลข)" required>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="fa-solid fa-vihara" style="margin-right: 8px;"></i> ข้อมูลการจำพรรษาและสังกัด</div>
+
+        <div class="form-group">
+            <label for="region_select">เขตการปกครองคณะสงฆ์ (ในยุโรป) <span class="required">*</span></label>
+            <div class="input-group">
+                <i class="fa-solid fa-layer-group"></i>
+                <select id="region_select" name="region" class="form-control" required onchange="onRegionChange()">
+                    <option value="" disabled selected>⏳ กำลังโหลดข้อมูลเขต...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="country_input">ประเทศ <span class="required">*</span></label>
+            <span class="description">พิมพ์เพื่อค้นหา เลือกจากรายการ หรือพิมพ์ชื่อประเทศใหม่ได้เลย</span>
+            <div class="input-group">
+                <i class="fa-solid fa-earth-europe"></i>
+                <input type="text" id="country_input" name="country" class="form-control" list="country_list" placeholder="-- กรุณาเลือกเขตก่อน --" autocomplete="off" required onchange="onCountryChange()">
+                <datalist id="country_list"></datalist>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="wat_europe_input">สังกัดวัด (ในยุโรป) <span class="required">*</span></label>
+            <span class="description">พิมพ์เพื่อค้นหา เลือกจากรายการ หรือพิมพ์ชื่อวัดใหม่ได้เลย</span>
+            <div class="input-group">
+                <i class="fa-solid fa-place-of-worship"></i>
+                <input type="text" id="wat_europe_input" name="wat_europe" class="form-control" list="wat_europe_list" placeholder="-- กรุณาเลือกประเทศก่อน --" autocomplete="off" required>
+                <datalist id="wat_europe_list"></datalist>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="wat_thailand">สังกัดวัด / จังหวัด (ประเทศไทย) <span class="required">*</span></label>
+            <span class="description">สังกัดเดิมหรือวัดที่จำพรรษาในประเทศไทย</span>
+            <div class="input-group">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <input type="text" id="wat_thailand" name="wat_thailand" class="form-control" placeholder="ระบุชื่อวัด และจังหวัดที่ประเทศไทย" required>
+            </div>
+        </div>
+
+        <div class="section-title"><i class="fa-solid fa-graduation-cap" style="margin-right: 8px;"></i> วุฒิการศึกษาและตำแหน่ง</div>
+
+        <div class="form-group">
+            <label for="naktham">น.ธ. (นักธรรม)</label>
+            <span class="description">ระบุชั้นนักธรรมที่สอบไล่ได้สูงสุด</span>
+            <div class="input-group">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <select id="naktham" name="naktham" class="form-control">
+                    <option value="" selected>-- เลือกชั้นนักธรรม (ถ้ามี) --</option>
+                    <option value="เอก">นักธรรมชั้นเอก</option>
+                    <option value="โท">นักธรรมชั้นโท</option>
+                    <option value="ตรี">นักธรรมชั้นตรี</option>
+                    <option value="ไม่ได้สอบ">ไม่ได้สอบ</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="parian">ป.ธ. (เปรียญธรรม)</label>
+            <span class="description">ระบุชั้นเปรียญธรรมที่สอบไล่ได้</span>
+            <div class="input-group">
+                <i class="fa-solid fa-book-journal-whills"></i>
+                <input type="text" id="parian" name="parian" class="form-control" placeholder="เช่น ป.ธ.๖ (หากไม่มีให้เว้นว่างไว้)">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="education">วุฒิสายสามัญ</label>
+            <span class="description">ระบุชั้นที่สำเร็จการศึกษาสูงสุด</span>
+            <div class="input-group">
+                <i class="fa-solid fa-award"></i>
+                <input type="text" id="education" name="education" class="form-control" placeholder="เช่น ป.โท - ป.เอก หรือ พธ.บ - Ph.D">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dhammaduta_model">พระธรรมทูต (รุ่น)</label>
+            <span class="description">หากผ่านการอบรมพระธรรมทูต กรุณาระบุรุ่นที่อบรม</span>
+            <div class="input-group">
+                <i class="fa-solid fa-users-viewfinder"></i>
+                <input type="text" id="dhammaduta_model" name="dhammaduta_model" class="form-control" placeholder="เช่น รุ่นที่ ๒๐ (หากไม่มีให้เว้นว่าง)">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="position">ตำแหน่งปัจจุบัน <span class="required">*</span></label>
+            <div class="input-group">
+                <i class="fa-solid fa-sitemap"></i>
+                <input type="text" id="position" name="position" class="form-control" placeholder="เช่น เจ้าอาวาส, พระธรรมทูตปฏิบัติศาสนกิจ" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>การอธิษฐานพรรษา <span class="required">*</span></label>
+            <div class="radio-group">
+                <label class="radio-item">
+                    <input type="radio" name="pansa_period" value="พรรษาต้น" required checked>
+                    <span><i class="fa-solid fa-sun" style="color: #c99a3c; margin-right: 5px;"></i> พรรษาต้น</span>
+                </label>
+                <label class="radio-item">
+                    <input type="radio" name="pansa_period" value="พรรษาหลัง">
+                    <span><i class="fa-solid fa-moon" style="color: #8c6239; margin-right: 5px;"></i> พรรษาหลัง</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="monk_count">จำนวนพระจำพรรษาในวัด <span class="required">*</span></label>
+            <span class="description">ระบุจำนวนพระที่จำพรรษา (๑ วัด ส่งคำตอบเพียง ๑ ครั้ง)</span>
+            <div class="input-group">
+                <i class="fa-solid fa-users"></i>
+                <input type="number" id="monk_count" name="monk_count" class="form-control" placeholder="ระบุจำนวน (ตัวเลข)" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="suggestions">ข้อเสนอแนะ</label>
+            <div class="input-group">
+                <i class="fa-regular fa-comment-dots"></i>
+                <textarea id="suggestions" name="suggestions" class="form-control" placeholder="ระบุข้อเสนอแนะเพิ่มเติม (ถ้ามี)"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit">
+            <i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ
+        </button>
+    </form>
+
+    <div class="footer-thankyou">
+        <i class="fa-solid fa-hands-praying"></i> ขอบพระคุณที่กรอกข้อมูลแบบสำรวจ
+    </div>
+</div>
+
+<script src="monk_survey_form.js"></script>
+</body>
+</html>

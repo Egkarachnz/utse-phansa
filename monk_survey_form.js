@@ -1,5 +1,5 @@
 // ********* ใส่ URL ของคุณตรงนี้ให้เหมือนเดิม *********
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzssIfESB_zKdg0wfbKQlkjBJ67sXY_p5vVHMkZ2vQIW4dFs0Pjm93GNMjXeryX24pP-g/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyI_icTiJeiEDrYdG8Sd5Tgox3xIgRfy7dHamOGexXtJDE6jtSUs224egVxXpJjELTQEw/exec';
 // ******************************************************
 
 const form = document.getElementById('survey-form');
@@ -105,7 +105,11 @@ function onCountryChange() {
     });
 }
 
-// 4. จัดการส่งฟอร์มข้อมูลไปยัง Google Sheets
+// 4. จัดการส่งฟอร์มข้อมูลไปยัง Google Sheets (ระบบอนิเมชั่น)
+const overlay = document.getElementById('submit-overlay');
+const overlayIcon = document.getElementById('overlay-icon');
+const overlayText = document.getElementById('overlay-text');
+
 form.addEventListener('submit', e => {
     e.preventDefault();
 
@@ -114,28 +118,103 @@ form.addEventListener('submit', e => {
         return;
     }
 
-    btnSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังบันทึกข้อมูล...';
-    btnSubmit.style.background = '#666666';
-    btnSubmit.disabled = true;
+    // --- สเต็ปที่ 1: แสดงอนิเมชั่น "กำลังส่งข้อมูล" (จรวดลอย) ---
+    overlayIcon.className = 'overlay-icon anim-sending';
+    overlayIcon.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+    overlayText.textContent = 'กำลังส่งข้อมูลแบบสำรวจ...';
+    overlay.classList.add('active');
+
+    btnSubmit.disabled = true; // ป้องกันการกดซ้ำ
 
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
         .then(response => {
-            alert('ส่งข้อมูลสำเร็จ ขอขอบพระคุณครับ');
-            form.reset();
-
+            // --- สเต็ปที่ 2: เปลี่ยนเป็นอนิเมชั่น "สำเร็จ" (เครื่องหมายถูกเด้ง) ---
+            overlayIcon.className = 'overlay-icon anim-success';
+            overlayIcon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            overlayText.textContent = 'ส่งข้อมูลสำเร็จ ขอขอบพระคุณครับ';
+            
+            form.reset(); // ล้างข้อมูลในฟอร์ม
             document.getElementById('country_input').placeholder = '-- กรุณาเลือกเขตก่อน --';
             document.getElementById('wat_europe_input').placeholder = '-- กรุณาเลือกประเทศก่อน --';
 
-            btnSubmit.innerHTML = '<i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ';
-            btnSubmit.style.background = 'linear-gradient(135deg, var(--gold-main) 0%, #9e7010 100%)';
-            btnSubmit.disabled = false;
+            // ปิดหน้าต่างอัตโนมัติหลังจากผ่านไป 2.5 วินาที
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                btnSubmit.disabled = false;
+                loadResponseCount();
+            }, 2500);
         })
         .catch(error => {
             console.error('Error!', error.message);
-            alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+            
+            // --- สเต็ปที่ 3: กรณีเกิดข้อผิดพลาด (กากบาทสีแดง) ---
+            overlayIcon.className = 'overlay-icon anim-error';
+            overlayIcon.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+            overlayText.textContent = 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
 
-            btnSubmit.innerHTML = '<i class="fa-regular fa-paper-plane"></i> ส่งแบบสำรวจ';
-            btnSubmit.style.background = 'linear-gradient(135deg, var(--gold-main) 0%, #9e7010 100%)';
-            btnSubmit.disabled = false;
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                btnSubmit.disabled = false;
+            }, 3000);
         });
 });
+
+function showCountError(message) {
+    const countEl = document.getElementById('response-count');
+
+    countEl.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+    countEl.style.display = 'inline-flex';
+    countEl.style.background = 'rgba(239, 68, 68, 0.15)';
+    countEl.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+    countEl.style.color = '#ef4444';
+}
+
+function showCountValue(count) {
+    const countEl = document.getElementById('response-count');
+
+    countEl.innerHTML = `<i class="fa-solid fa-users"></i> <span class="count-text">ตอบแล้ว</span> ${count} <span class="count-text">รูป</span>`;
+    countEl.style.display = 'inline-flex';
+    countEl.style.background = '';
+    countEl.style.borderColor = '';
+    countEl.style.color = '';
+}
+
+// 5. โหลดจำนวนผู้ตอบแบบสำรวจ
+function loadResponseCount() {
+    const countEl = document.getElementById('response-count');
+    
+    if (scriptURL === 'ใส่_URL_ของ_Google_Apps_Script_ที่นี่' || scriptURL === '') {
+        showCountError('ยังไม่ได้ตั้งค่า URL');
+        return;
+    }
+
+    countEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดจำนวนผู้กรอก...';
+
+    fetch(scriptURL + '?action=getStats')
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .then(data => {
+            if (data && data.count !== undefined) {
+                // กรณีสำเร็จ: แสดงจำนวนคน
+                showCountValue(data.count);
+            } else if (data && data.error) {
+                // กรณีหลังบ้านฟ้อง Error (เช่น พิมพ์ชื่อชีตผิด) ให้โชว์ป้ายสีแดง
+                console.error("แจ้งเตือนจากหลังบ้าน:", data.error);
+                showCountError(`Error: ${data.error}`);
+            } else if (Array.isArray(data)) {
+                console.error('Apps Script ยังไม่รองรับ action=getStats และคืนข้อมูลหลักกลับมาแทน');
+                showCountError('ยังไม่ได้เปิดใช้ระบบนับจำนวน');
+            } else {
+                showCountError('ไม่พบข้อมูลจำนวนผู้กรอก');
+            }
+        })
+        .catch(error => {
+            // กรณีสคริปต์หลังบ้านเป็นเวอร์ชันเก่า หรือเกิดข้อผิดพลาดรุนแรง
+            console.error('Fetch Error:', error);
+            showCountError('Error: หลังบ้านยังเป็นเวอร์ชันเก่า');
+        });
+}
+
+window.addEventListener('load', loadResponseCount);

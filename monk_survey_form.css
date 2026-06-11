@@ -560,11 +560,18 @@ input[list]::-webkit-calendar-picker-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 14px;
+  flex-wrap: wrap;
   background: var(--footer-bg);
 }
 
-.form-footer i { color: var(--gold-muted); }
+.footer-thanks {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-thanks i { color: var(--gold-muted); }
 
 /* ══════════════════════════════════════
    RESPONSIVE — mobile single column
@@ -611,7 +618,12 @@ input[list]::-webkit-calendar-picker-indicator {
 
   .form-topbar { padding: 12px 20px; position: static; }
   .form-content { padding: 28px 20px 48px; }
-  .form-footer { padding: 14px 20px; }
+  .form-footer {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
 
   .form-grid { grid-template-columns: 1fr; gap: 0; }
   .col-span-2 { grid-column: 1; }
@@ -621,6 +633,120 @@ input[list]::-webkit-calendar-picker-indicator {
 
   .form-group.no-hint::after { display: none; }
   .form-hint { flex-grow: 0; }
+}
+/* ══════════════════════════════════════
+   OVERLAY ANIMATION (SENDING & SUCCESS)
+══════════════════════════════════════ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 16, 31, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+:root[data-theme="light"] .overlay {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlay-content {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 40px 50px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.overlay.active .overlay-content {
+  transform: translateY(0) scale(1);
+}
+
+.overlay-icon {
+  font-size: 55px;
+  color: var(--gold-main);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.overlay-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-light);
+  margin: 0;
+}
+
+/* --- อนิเมชั่นตอนส่งข้อมูล --- */
+.anim-sending i {
+  animation: float-pulse 1.2s ease-in-out infinite alternate;
+}
+
+/* --- อนิเมชั่นตอนสำเร็จ (สีเขียว) --- */
+.anim-success i {
+  color: #10b981; 
+  animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* --- อนิเมชั่นตอนผิดพลาด (สีแดง) --- */
+.anim-error i {
+  color: #ef4444; 
+  animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes float-pulse {
+  0% { transform: translateY(4px) scale(0.95); opacity: 0.8; }
+  100% { transform: translateY(-8px) scale(1.05); opacity: 1; }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ══════════════════════════════════════
+   RESPONSE COUNT PILL
+══════════════════════════════════════ */
+.count-pill {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #10b981;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  min-height: 28px;
+}
+
+:root[data-theme="light"] .count-pill {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #059669;
+}
+
+/* ซ่อนข้อความในมือถือให้เหลือแต่ตัวเลขและไอคอน เพื่อประหยัดพื้นที่ */
+@media (max-width: 480px) {
+  .count-pill .count-text { display: inline; }
 }
 
 :focus-visible { outline: 2px solid var(--gold-main); outline-offset: 2px; }

@@ -59,13 +59,14 @@
 
   <div class="form-panel">
 
-    <div class="form-topbar">
+        <div class="form-topbar">
       <span class="topbar-label"><i class="fa-solid fa-file-pen" style="margin-right:8px;color:var(--gold-muted)"></i>กรอกข้อมูลแบบสำรวจ</span>
-      <div class="topbar-actions">
+        <div class="topbar-actions">
+        
         <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
           <i class="fa-solid fa-sun"></i>
         </button>
-        <span class="year-pill">พรรษา 2569</span>
+        <span class="year-pill">พรรษากาล ปีพุทธศักราช 2569</span>
       </div>
     </div>
 
@@ -85,8 +86,8 @@
               <select id="year" name="year" required class="f-control">
                 <option value="" disabled selected>-- เลือกปีประจำพรรษา --</option>
                 <option value="2569">2569</option>
-                <option value="2568">2568</option>
-                <option value="2567">2567</option>
+                <option value="2570">2570</option>
+                <option value="2571">2571</option>
               </select>
               <i class="fa-regular fa-calendar-days ico"></i>
             </div>
@@ -115,6 +116,14 @@
             <div class="input-wrap">
               <input type="text" id="lastname" name="lastname" required placeholder="นามสกุลทางโลก" class="f-control" />
               <i class="fa-regular fa-id-card ico"></i>
+            </div>
+          </div>
+
+        <div class="form-group">
+            <label for="age">อายุ (ปี) <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input type="number" id="age" name="age" required min="1" placeholder="อายุเต็มปีบริบูรณ์" class="f-control" />
+              <i class="fa-solid fa-calendar-day ico"></i>
             </div>
           </div>
 
@@ -186,10 +195,10 @@
 
           <div class="form-group">
             <label for="naktham">น.ธ. (นักธรรม)</label>
-            <p class="form-hint">ชั้นนักธรรมที่สอบไล่ได้สูงสุด</p>
+            <p class="form-hint">ชั้นนักธรรมที่สอบไล่ได้สูงสุด (ถ้ามี)</p>
             <div class="input-wrap">
               <select id="naktham" name="naktham" class="f-control">
-                <option value="" selected>-- เลือกชั้นนักธรรม (ถ้ามี) --</option>
+                <option value="" selected>-- เลือกชั้นนักธรรม --</option>
                 <option value="เอก">นักธรรมชั้นเอก</option>
                 <option value="โท">นักธรรมชั้นโท</option>
                 <option value="ตรี">นักธรรมชั้นตรี</option>
@@ -199,11 +208,22 @@
             </div>
           </div>
 
-          <div class="form-group">
+                    <div class="form-group">
             <label for="parian">ป.ธ. (เปรียญธรรม)</label>
             <p class="form-hint">ชั้นเปรียญธรรมที่สอบไล่ได้ (ถ้ามี)</p>
             <div class="input-wrap">
-              <input type="text" id="parian" name="parian" placeholder="เช่น ป.ธ.๖" class="f-control" />
+              <select id="parian" name="parian" class="f-control">
+                <option value="" selected>-- เลือกชั้นเปรียญธรรม --</option>
+                <option value="ป.ธ.1-2">ประโยค 1-2</option>
+                <option value="ป.ธ.3">ป.ธ.3</option>
+                <option value="ป.ธ.4">ป.ธ.4</option>
+                <option value="ป.ธ.5">ป.ธ.5</option>
+                <option value="ป.ธ.6">ป.ธ.6</option>
+                <option value="ป.ธ.7">ป.ธ.7</option>
+                <option value="ป.ธ.8">ป.ธ.8</option>
+                <option value="ป.ธ.9">ป.ธ.9</option>
+                <option value="ไม่ได้สอบ">ไม่ได้สอบ</option>
+              </select>
               <i class="fa-solid fa-book-journal-whills ico"></i>
             </div>
           </div>
@@ -229,7 +249,7 @@
           <div class="form-group col-span-2">
             <label for="position">ตำแหน่งปัจจุบัน <span class="required">*</span></label>
             <div class="input-wrap">
-              <input type="text" id="position" name="position" required placeholder="เช่น เจ้าอาวาส, พระธรรมทูตปฏิบัติศาสนกิจ" class="f-control" />
+              <input type="text" id="position" name="position" required placeholder="เช่น เจ้าอาวาส, พระธรรมทูตประจำ, พระธรรมทูตปฏิบัติศาสนกิจ" class="f-control" />
               <i class="fa-solid fa-sitemap ico"></i>
             </div>
           </div>
@@ -282,12 +302,26 @@
 
       </form>
     </div>
-
+  
     <div class="form-footer">
-      <i class="fa-solid fa-hands-praying"></i>
-      ขอบพระคุณที่กรอกข้อมูลแบบสำรวจ
+      <span class="footer-thanks">
+        <i class="fa-solid fa-hands-praying"></i>
+        ขอบพระคุณที่กรอกข้อมูลแบบสำรวจ
+      </span>
+      <span id="response-count" class="count-pill">
+        <i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดจำนวนผู้กรอก...
+      </span>
     </div>
+    <div id="submit-overlay" class="overlay">
+        <div class="overlay-content">
+        <div id="overlay-icon" class="overlay-icon">
+         <i class="fa-solid fa-paper-plane"></i>
+    </div>
+    <h3 id="overlay-text" class="overlay-text">กำลังส่งข้อมูล...</h3>
+  </div>
 
   </div></div><script src="monk_survey_form.js"></script>
+  
+</div>
 </body>
 </html>

@@ -93,7 +93,7 @@ form.addEventListener('submit', e => {
 
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
         .then(response => {
-            alert('ส่งข้อมูลสำเร็จ ขอขอบพระคุณครับ/ค่ะ');
+            alert('ส่งข้อมูลสำเร็จ ขอขอบพระคุณครับ');
             form.reset();
 
             document.getElementById('country_input').placeholder = '-- กรุณาเลือกเขตก่อน --';

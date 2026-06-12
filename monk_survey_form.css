@@ -441,6 +441,10 @@ select.f-control {
 
 select.f-control option { background: var(--bg-panel); color: var(--text-light); }
 
+.mobile-choice-control {
+  display: none;
+}
+
 textarea.f-control {
   resize: vertical;
   min-height: 100px;
@@ -623,6 +627,14 @@ input[list]::-webkit-calendar-picker-indicator {
     flex-direction: column;
     gap: 10px;
     text-align: center;
+  }
+
+  .text-choice-control {
+    display: none;
+  }
+
+  .mobile-choice-control {
+    display: block;
   }
 
   .form-grid { grid-template-columns: 1fr; gap: 0; }

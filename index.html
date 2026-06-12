@@ -159,7 +159,10 @@
             <label for="country_input">ประเทศ <span class="required">*</span></label>
             <p class="form-hint">พิมพ์เพื่อค้นหา หรือเลือกจากรายการ</p>
             <div class="input-wrap">
-              <input type="text" id="country_input" name="country" list="country_list" autocomplete="off" required onchange="onCountryChange()" placeholder="-- กรุณาเลือกเขตก่อน --" class="f-control" />
+              <input type="text" id="country_input" name="country" list="country_list" autocomplete="off" required onchange="onCountryChange()" placeholder="-- กรุณาเลือกเขตก่อน --" class="f-control text-choice-control" />
+              <select id="country_select" class="f-control mobile-choice-control" aria-label="เลือกประเทศ" disabled>
+                <option value="" disabled selected>-- กรุณาเลือกเขตก่อน --</option>
+              </select>
               <datalist id="country_list"></datalist>
               <i class="fa-solid fa-earth-europe ico"></i>
             </div>
@@ -169,7 +172,10 @@
             <label for="wat_europe_input">วัด / สำนักสงฆ์ (ในยุโรป) <span class="required">*</span></label>
             <p class="form-hint">พิมพ์เพื่อค้นหา หรือพิมพ์ชื่อวัดใหม่</p>
             <div class="input-wrap">
-              <input type="text" id="wat_europe_input" name="wat_europe" list="wat_europe_list" autocomplete="off" required placeholder="-- กรุณาเลือกประเทศก่อน --" class="f-control" />
+              <input type="text" id="wat_europe_input" name="wat_europe" list="wat_europe_list" autocomplete="off" required placeholder="-- กรุณาเลือกประเทศก่อน --" class="f-control text-choice-control" />
+              <select id="wat_europe_select" class="f-control mobile-choice-control" aria-label="เลือกวัดหรือสำนักสงฆ์" disabled>
+                <option value="" disabled selected>-- กรุณาเลือกประเทศก่อน --</option>
+              </select>
               <datalist id="wat_europe_list"></datalist>
               <i class="fa-solid fa-place-of-worship ico"></i>
             </div>
